@@ -1,0 +1,369 @@
+:root{
+  --bg-1: #1b1326;
+  --bg-2: #2f2543;
+  --accent: #BCA37F;
+  --card-bg: rgba(255,255,255,0.06);
+  --muted: rgba(255,255,255,0.75);
+  --success: #3FB950;
+  --danger: #F44336;
+  --glass-border: rgba(255,255,255,0.06);
+
+  /* Nuevas variables para el card destacado */
+  --featured-border-gradient: linear-gradient(120deg, rgba(188,163,127,0.18), rgba(99,89,133,0.18));
+  --featured-glow: 0 18px 50px rgba(188,163,127,0.06);
+  --card-padding-lg: 2.4rem;
+  --card-radius-lg: 20px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body {
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background: radial-gradient(1200px 600px at 10% 20%, rgba(76,62,112,0.35), transparent),
+              radial-gradient(800px 400px at 90% 80%, rgba(188,163,127,0.07), transparent),
+              linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  color: #FAFAFA;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Fondo decorativo: formas difuminadas y leve animación */
+.bg-decor{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.bg-decor .shape{
+  position:absolute;
+  filter: blur(36px) saturate(120%);
+  opacity: 0.6;
+  transform: translate3d(0,0,0);
+  will-change: transform, opacity;
+}
+.bg-decor .s1{
+  width:420px; height:420px;
+  left:-8%; top:-10%;
+  background: radial-gradient(circle at 30% 30%, rgba(188,163,127,0.18), transparent 40%),
+              linear-gradient(120deg, rgba(99,89,133,0.22), rgba(63,185,80,0.08));
+  animation: float-1 14s ease-in-out infinite;
+}
+.bg-decor .s2{
+  width:320px; height:320px;
+  right:-6%; top:4%;
+  background: radial-gradient(circle at 70% 70%, rgba(188,163,127,0.12), transparent 35%),
+              linear-gradient(180deg, rgba(67,55,95,0.22), rgba(244,67,54,0.06));
+  animation: float-2 18s ease-in-out infinite;
+}
+.bg-decor .s3{
+  width:260px; height:260px;
+  left:10%; bottom:-6%;
+  background: radial-gradient(circle at 40% 60%, rgba(98,81,138,0.12), transparent 40%),
+              linear-gradient(90deg, rgba(188,163,127,0.08), rgba(63,185,80,0.06));
+  animation: float-3 11s ease-in-out infinite;
+}
+.bg-decor .s4{
+  width:180px; height:180px;
+  right:18%; bottom:2%;
+  background: radial-gradient(circle at 50% 30%, rgba(188,163,127,0.10), transparent 40%),
+              linear-gradient(60deg, rgba(255,255,255,0.02), rgba(63,185,80,0.04));
+  animation: float-4 16s ease-in-out infinite;
+}
+.bg-decor .grain{
+  position:absolute;
+  inset:0;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><rect width="100%" height="100%" fill="none"/></svg>');
+  opacity:0.03;
+  mix-blend-mode: overlay;
+  pointer-events:none;
+}
+
+/* Sprites / figuritas animadas */
+.bg-decor .sprites{
+  position:absolute;
+  inset:-8% -8% -8% -8%;
+  pointer-events:none;
+  z-index:0;
+}
+.sprite{
+  position:absolute;
+  will-change: transform, opacity;
+  transform-origin:center;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.25));
+  opacity:0.95;
+}
+
+/* Asignaciones por figura (posición, tamaño, color, forma, duración) */
+.sprite.p1{ left:6%;  top:12%;  width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg, rgba(99,89,133,0.95), rgba(188,163,127,0.6)); animation: sprite-move-1 16s linear infinite; }
+.sprite.p2{ left:22%; top:48%; width:44px; height:44px; background:linear-gradient(135deg, rgba(63,185,80,0.95), rgba(99,89,133,0.18)); border-radius:14px; animation: sprite-move-2 12s linear infinite; transform: rotate(8deg); }
+.sprite.p3{ left:40%; top:6%;  width:88px; height:88px; background:linear-gradient(180deg, rgba(188,163,127,0.95), rgba(99,89,133,0.14)); border-radius:12px; animation: sprite-move-3 20s linear infinite; }
+.sprite.p4{ left:68%; top:18%; width:36px; height:36px; background:linear-gradient(90deg, rgba(244,67,54,0.95), rgba(188,163,127,0.14)); clip-path: polygon(50% 0%, 100% 100%, 0% 100%); animation: sprite-move-4 10s linear infinite; }
+.sprite.p5{ left:82%; top:58%; width:72px; height:72px; background:linear-gradient(90deg, rgba(63,185,80,0.85), rgba(99,89,133,0.12)); border-radius:8px; animation: sprite-move-5 18s linear infinite; transform: rotate(12deg); }
+.sprite.p6{ left:34%; top:70%; width:28px; height:28px; background:linear-gradient(135deg, rgba(99,89,133,0.95), rgba(63,185,80,0.14)); border-radius:6px; animation: sprite-move-6 9s linear infinite; }
+.sprite.p7{ left:12%; top:78%; width:50px; height:50px; background:linear-gradient(135deg, rgba(188,163,127,0.95), rgba(244,67,54,0.12)); border-radius:50% 20% 50% 20%; animation: sprite-move-7 14s linear infinite; }
+.sprite.p8{ left:56%; top:36%; width:40px; height:40px; background:linear-gradient(135deg, rgba(99,89,133,0.95), rgba(188,163,127,0.12)); clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); animation: sprite-move-8 13s linear infinite; }
+
+@keyframes sprite-move-1 { 0%{transform: translate3d(0,0,0) rotate(0deg) scale(1)} 25%{transform: translate3d(18px,-40px,0) rotate(30deg) scale(0.98)} 50%{transform: translate3d(-24px,-80px,0) rotate(180deg) scale(1.03)} 75%{transform: translate3d(12px,-40px,0) rotate(260deg) scale(0.99)} 100%{transform: translate3d(0,0,0) rotate(360deg) scale(1)} }
+@keyframes sprite-move-2 { 0%{transform: translate3d(0,0,0) rotate(0deg)} 50%{transform: translate3d(-28px,-120px,0) rotate(180deg)} 100%{transform: translate3d(0,0,0) rotate(360deg)} }
+@keyframes sprite-move-3 { 0%{transform: translate3d(0,0,0) rotate(0deg)} 30%{transform: translate3d(40px,-90px,0) rotate(90deg)} 60%{transform: translate3d(-60px,-160px,0) rotate(220deg)} 100%{transform: translate3d(0,0,0) rotate(360deg)} }
+@keyframes sprite-move-4 { 0%{transform: translate3d(0,0,0) rotate(0deg)} 50%{transform: translate3d(120px,-40px,0) rotate(140deg)} 100%{transform: translate3d(0,0,0) rotate(360deg)} }
+@keyframes sprite-move-5 { 0%{transform: translate3d(0,0,0) rotate(0deg)} 40%{transform: translate3d(-36px,-120px,0) rotate(200deg)} 100%{transform: translate3d(0,0,0) rotate(360deg)} }
+@keyframes sprite-move-6 { 0%{transform: translate3d(0,0,0) rotate(0deg) scale(1)} 50%{transform: translate3d(0,-90px,0) rotate(160deg) scale(1.08)} 100%{transform: translate3d(0,0,0) rotate(360deg) scale(1)} }
+@keyframes sprite-move-7 { 0%{transform: translate3d(0,0,0) rotate(0deg)} 45%{transform: translate3d(80px,-140px,0) rotate(210deg)} 100%{transform: translate3d(0,0,0) rotate(360deg)} }
+@keyframes sprite-move-8 { 0%{transform: translate3d(0,0,0) rotate(0deg)} 50%{transform: translate3d(-100px,-60px,0) rotate(180deg)} 100%{transform: translate3d(0,0,0) rotate(360deg)} }
+
+/* ========= FLOATING COVERS (IMAGENES LOCALES, STREAM ALEATORIO) ========= */
+.floating-covers{
+  position:absolute;
+  inset:0;
+  z-index: 2; /* por encima del fondo; main tiene z-index:1 */
+  pointer-events: none;
+}
+.floating-covers img.cover-sprite{
+  position: absolute;
+  bottom: -28vh;
+  display:block;
+  width: var(--size, 96px);
+  height: calc(var(--size, 96px) * 1.4);
+  left: var(--left, 10%);
+  transform: translateX(-50%);
+  border-radius: 8px;
+  overflow: hidden;
+  object-fit: cover;
+  background-color: rgba(255,255,255,0.04);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.5);
+  transition: transform 200ms ease, opacity 300ms ease;
+  opacity: 0.98;
+  border: 1px solid rgba(255,255,255,0.04);
+  will-change: transform;
+  pointer-events: none;
+}
+@keyframes float-up {
+  0% { transform: translateX(-50%) translateY(0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateX(-50%) translateY(-140vh); opacity: 0.95; }
+}
+
+/* Card / layout: MAIN aumentado para dar más espacio al card central */
+main {
+  width: 100%;
+  max-width: 780px; /* Aumentado para el "cuadrado del medio" más grande */
+  padding: clamp(1.2rem, 2.6vw, 2.2rem);
+  z-index: 1;
+}
+
+/* Estilos base para todas las cards */
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius: 18px;
+  box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+  border: 1px solid var(--glass-border);
+  padding: 1.6rem;
+  backdrop-filter: blur(6px) saturate(120%);
+}
+
+/* Estilos especiales para el card del quiz (cuadrado del medio) */
+#quiz-container.card {
+  position: relative;
+  padding: var(--card-padding-lg);
+  border-radius: var(--card-radius-lg);
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.025));
+  box-shadow: 0 20px 60px rgba(12,8,28,0.6), var(--featured-glow);
+  border: 1px solid rgba(255,255,255,0.04);
+  overflow: visible;
+  min-height: 420px; /* más alto para contenido amplio */
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+/* Borde decorativo sutil con pseudo-elemento para efecto degradado */
+#quiz-container.card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  border-radius: calc(var(--card-radius-lg) + 1px);
+  background: var(--featured-border-gradient);
+  opacity: 0.14;
+  filter: blur(10px) saturate(120%);
+  pointer-events: none;
+}
+
+/* Pequeñas decoraciones en las esquinas */
+#quiz-container.card::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 64px;
+  height: 64px;
+  background: radial-gradient(circle at 30% 30%, rgba(188,163,127,0.08), transparent 40%);
+  border-radius: 12px;
+  opacity: 0.9;
+  transform: rotate(15deg);
+  pointer-events: none;
+}
+
+/* Top row: score + progress (más espaciado dentro del card aumentado) */
+#top-row{
+  display:flex;
+  gap:1rem;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:1.4rem;
+}
+#score-board{
+  color:var(--muted);
+  font-weight:600;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:1rem;
+}
+
+/* Progress bar aumentado y con brillo */
+#progress-bar{
+  flex:1;
+  margin-left:1rem;
+  height:14px; /* aumentado */
+  background: rgba(57,48,83,0.45);
+  border-radius:999px;
+  padding:2px;
+  box-shadow: inset 0 -2px 8px rgba(0,0,0,0.5);
+  overflow:hidden;
+}
+#progress{
+  display:block;
+  height:100%;
+  width:0%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.08), var(--accent));
+  border-radius:999px;
+  transition: width 0.35s cubic-bezier(.2,.9,.2,1);
+  position:relative;
+  box-shadow: 0 4px 18px rgba(188,163,127,0.08);
+}
+#progress::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.02) 0 25%, transparent 25% 50%, rgba(255,255,255,0.01) 50% 75%, transparent 75% 100%);
+  background-size: 18px 18px;
+  mix-blend-mode: overlay;
+  opacity:0.8;
+}
+
+/* Question area: letra más grande y espaciada */
+#question-area h2{
+  margin:0;
+  font-size: clamp(1.2rem, 2.8vw, 1.6rem); /* aumentado y responsivo */
+  font-weight:700;
+  color:#FFF;
+  line-height:1.2;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+#answers{
+  display:flex;
+  flex-direction:column;
+  gap:1rem; /* más separación entre respuestas */
+  margin-top:1.2rem;
+}
+
+/* Answer buttons: más grandes y con estilo destacado */
+.answer-btn {
+  padding: 1.05em 1.2em;
+  background: rgba(99,89,133,0.22);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  color: #FAFAFA;
+  font-size: 1.05rem; /* aumentado */
+  cursor: pointer;
+  transition: transform 0.12s ease, background 0.16s ease, box-shadow 0.18s ease;
+  text-align:left;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  padding-left:1.1em;
+}
+.answer-btn:hover{
+  transform: translateY(-5px) scale(1.01);
+  background: rgba(188,163,127,0.12);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+}
+.answer-btn:active{ transform: translateY(-2px); }
+.answer-btn[disabled]{ opacity:0.75; cursor:default; transform:none; }
+
+/* Correct/incorrect states con sombras más fuertes */
+.answer-btn.correct {
+  background: linear-gradient(180deg, rgba(63,185,80,0.98), rgba(47,160,67,0.98));
+  border-color: rgba(0,0,0,0.08);
+  color: #07220a;
+  box-shadow: 0 14px 40px rgba(63,185,80,0.14);
+}
+.answer-btn.incorrect {
+  background: linear-gradient(180deg, rgba(244,67,54,0.98), rgba(200,40,34,0.98));
+  color: #fff;
+  box-shadow: 0 14px 40px rgba(244,67,54,0.12);
+}
+
+/* Start / primary buttons (se mantienen pero ligeramente más grandes) */
+.primary-btn{
+  background: linear-gradient(180deg, var(--accent), rgba(188,163,127,0.85));
+  color: #18122B;
+  border-radius: 12px;
+  padding: 0.95rem;
+  border: none;
+  font-weight:600;
+  width:100%;
+  box-shadow: 0 10px 36px rgba(0,0,0,0.35);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  cursor:pointer;
+}
+.primary-btn:hover{ transform: translateY(-4px); box-shadow: 0 14px 48px rgba(0,0,0,0.45); }
+.primary-btn:active{ transform:translateY(-2px); }
+
+/* Small text */
+.sub{
+  color: rgba(255,255,255,0.8);
+  text-align:center;
+  margin:0.4rem 0 1rem 0;
+  font-size:0.98rem;
+}
+
+/* End screen */
+.end-actions{ margin-top:0.8rem }
+
+/* Generic buttons */
+button{
+  font-family: inherit;
+}
+
+/* Hidden helper */
+.hidden { display: none; }
+
+/* Responsive adjustments */
+@media (max-width: 920px) {
+  main{ max-width: 92%; padding: 1.2rem; }
+  #quiz-container.card { min-height: 380px; padding: 1.6rem; border-radius: 16px; }
+  #question-area h2 { font-size: 1.3rem; }
+  .answer-btn { font-size: 1rem; padding: 0.95em 1rem; border-radius: 12px; }
+}
+
+@media (max-width: 520px){
+  main{ padding:1rem; max-width: 92vw; }
+  #question-area h2{ font-size:1rem; }
+  .bg-decor .shape{ filter: blur(30px); opacity:0.5 }
+  .sprite{ filter: none; }
+  /* Reducir el tamaño y densidad de elementos en móvil para no saturar */
+  #quiz-container.card { padding: 1.1rem; min-height: auto; }
+  .answer-btn { padding: 0.85em 0.9em; font-size: 0.98rem; border-radius: 10px; }
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .bg-decor .shape, #progress, .answer-btn, .primary-btn, .sprite { animation: none; transition: none; transform: none !important; }
+  .floating-covers img.cover-sprite { animation: none; transition: none; transform: none !important; opacity: 0.0; }
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trivia Gamer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="quiz-styles.css">
+  <meta name="theme-color" content="#2f2543">
+</head>
+<body>
+  <!-- Decoración de fondo (solo visual) -->
+  <div class="bg-decor" aria-hidden="true">
+    <span class="shape s1"></span>
+    <span class="shape s2"></span>
+    <span class="shape s3"></span>
+    <span class="shape s4"></span>
+    <span class="grain"></span>
+
+    <!-- Figuras animadas ("figuritas") -->
+    <div class="sprites">
+      <span class="sprite p1"></span>
+      <span class="sprite p2"></span>
+      <span class="sprite p3"></span>
+      <span class="sprite p4"></span>
+      <span class="sprite p5"></span>
+      <span class="sprite p6"></span>
+      <span class="sprite p7"></span>
+      <span class="sprite p8"></span>
+    </div>
+
+    <!-- Contenedor de portadas flotantes (generado por JS) -->
+    <div id="floating-covers" class="floating-covers" aria-hidden="false"></div>
+  </div>
+
+  <main id="app">
+    <section id="quiz-container" class="hidden card">
+      <div id="top-row">
+        <div id="score-board">
+          Puntuacion : <span id="score">0</span>
+        </div>
+        <div id="progress-bar" aria-hidden="true">
+          <span id="progress"></span>
+        </div>
+      </div>
+
+      <div id="question-area">
+        <h2 id="question"></h2>
+        <div id="answers"></div>
+      </div>
+    </section>
+
+    <section id="start-screen" class="card">
+      <h1>Trivia Gamer</h1>
+      <p class="sub">Desafia tus conocimientos respondiendo a 10 preguntas</p>
+      <button id="start-btn" class="primary-btn">Comenzar el Quiz</button>
+    </section>
+
+    <section id="end-screen" class="hidden card">
+      <h2>Fin del Quiz !</h2>
+      <p id="final-score"></p>
+      <div class="end-actions">
+        <button id="restart-btn" class="primary-btn">Volver a jugar</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="quiz-game.js"></script>
+</body>
+</html>
